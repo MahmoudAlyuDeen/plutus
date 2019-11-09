@@ -11,9 +11,9 @@ data class DatabaseBitcoinValue(
     val value: Double
 )
 
-fun List<DatabaseBitcoinValue>.asDomainBitcoinValues() = map {
-    BitcoinValue(
-        timestamp = it.timestamp,
-        value = it.value
-    )
-}
+fun List<DatabaseBitcoinValue>.asDomainBitcoinValues() = map { it.asBitcoinValue() }
+
+fun DatabaseBitcoinValue.asBitcoinValue() = BitcoinValue(
+    timestamp = timestamp,
+    value = value
+)

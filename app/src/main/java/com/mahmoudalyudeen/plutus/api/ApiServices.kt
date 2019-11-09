@@ -23,7 +23,7 @@ class ApiServices {
     fun createBitcoinApi(): BitcoinApi {
         val interceptor = HttpLoggingInterceptor()
         interceptor.level = HttpLoggingInterceptor.Level.BODY
-        val okHttpClient = OkHttpClient.Builder().apply { addNetworkInterceptor(interceptor) }.build()
+        val okHttpClient = OkHttpClient.Builder().addNetworkInterceptor(interceptor).build()
 
         val moshi = Moshi.Builder()
             .add(KotlinJsonAdapterFactory())
@@ -40,4 +40,4 @@ class ApiServices {
     }
 }
 
-enum class CallStatus { Loading, Error, Idle, Empty }
+enum class CallStatus { Loading, Error, Idle }
