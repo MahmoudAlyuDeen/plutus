@@ -69,14 +69,16 @@ fun bindLineChartBitcoinValues(lineChart: LineChart, bitcoinValue: List<BitcoinV
             xAxis.labelRotationAngle = 270f
             xAxis.textColor = secondaryColor
             xAxis.valueFormatter = BitcoinTimeAxisFormatter()
+            xAxis.setDrawGridLines(false)
             axisLeft.valueFormatter = BitcoinValueAxisFormatter()
             axisLeft.textColor = secondaryColor
-            axisLeft.setLabelCount(20, true)
+            axisLeft.setLabelCount(10, true)
             description.text = descriptionText
             description.textColor = secondaryColor
             marker = BitcoinChartMarker(lineChart.context)
             legend.textColor = primaryColor
             setScaleEnabled(false)
+            animateX( 3000)
             invalidate()
         }
     }
