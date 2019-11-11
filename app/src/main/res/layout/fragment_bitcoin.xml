@@ -17,12 +17,14 @@
         android:layout_height="match_parent">
 
         <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/bitcoinChart"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:bitcoinValues="@{viewModel.bitcoinValues}"
             app:callStatusIdle="@{viewModel.callStatus}" />
 
         <ProgressBar
+            android:id="@+id/bitcoinLoading"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -30,6 +32,7 @@
             tools:visibility="gone" />
 
         <ImageView
+            android:id="@+id/bitcoinError"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
