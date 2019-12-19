@@ -11,7 +11,7 @@ android {
 
     defaultConfig {
         applicationId = "com.mahmoudalyudeen.plutus"
-        minSdkVersion(19)
+        minSdkVersion(21)
         targetSdkVersion(29)
         versionCode = 1
         versionName = "1.0"
@@ -61,6 +61,14 @@ dependencies {
 
     // AndroidX ktx Core
     implementation(Libs.androidx_core_core_ktx)
+
+    // Dagger
+
+    // Dagger
+    implementation("com.google.dagger:dagger:2.24")
+    kapt("com.google.dagger:dagger-compiler:2.24")
+    implementation("com.google.dagger:dagger-android-support:2.24")
+    kapt("com.google.dagger:dagger-android-processor:2.24")
 
     // Material
     implementation(Libs.material)

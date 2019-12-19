@@ -1,19 +1,15 @@
 package com.mahmoudalyudeen.plutus
 
-import android.app.Application
-import com.mahmoudalyudeen.plutus.di.bitcoinModule
-import com.mahmoudalyudeen.plutus.di.dataModule
-import org.koin.android.ext.koin.androidContext
-import org.koin.core.context.startKoin
+import com.mahmoudalyudeen.plutus.di.DaggerAppComponent
+import dagger.android.AndroidInjector
+import dagger.android.DaggerApplication
 
 @Suppress("unused") // used in manifest
-open class App : Application() {
+open class App : DaggerApplication() {
 
-    override fun onCreate() {
-        startKoin {
-            androidContext(this@App)
-            modules(listOf(dataModule, bitcoinModule))
-        }
-        super.onCreate()
+    private val injector by lazy {
+        DaggerAppComponent.factory().create(this)
     }
+
+    override fun applicationInjector(): AndroidInjector<out DaggerApplication> = injector
 }
