@@ -1,31 +1,21 @@
 package com.mahmoudalyudeen.plutus.ui.bitcoin
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import com.mahmoudalyudeen.plutus.databinding.FragmentBitcoinBinding
 import dagger.android.DispatchingAndroidInjector
-import dagger.android.HasAndroidInjector
-import dagger.android.support.AndroidSupportInjection
+import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
-class BitcoinFragment : Fragment(), HasAndroidInjector {
+class BitcoinFragment : DaggerFragment() {
 
     @Inject
     lateinit var viewModel: BitcoinViewModel
 
     @Inject
     lateinit var androidInjector: DispatchingAndroidInjector<Any>
-
-    override fun androidInjector() = androidInjector
-
-    override fun onAttach(context: Context) {
-        AndroidSupportInjection.inject(this)
-        super.onAttach(context)
-    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val binding = FragmentBitcoinBinding.inflate(inflater, container, false)

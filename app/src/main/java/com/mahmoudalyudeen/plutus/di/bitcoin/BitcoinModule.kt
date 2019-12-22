@@ -10,7 +10,6 @@ import com.mahmoudalyudeen.plutus.ui.bitcoin.BitcoinViewModel
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
-import javax.inject.Singleton
 
 @Module
 object BitcoinModule {
@@ -21,12 +20,10 @@ object BitcoinModule {
         retrofit.create(ApiServices.BitcoinApi::class.java)
 
     @JvmStatic
-    @Singleton
     @Provides
     fun provideBitcoinValueDao(bitcoinDatabase: BitcoinDatabase): BitcoinValueDao = bitcoinDatabase.bitcoinValueDao
 
     @JvmStatic
-    @Singleton
     @Provides
     fun providesRepository(bitcoinApi: ApiServices.BitcoinApi, bitcoinValueDao: BitcoinValueDao) =
         BitcoinRepository(bitcoinApi, bitcoinValueDao)
