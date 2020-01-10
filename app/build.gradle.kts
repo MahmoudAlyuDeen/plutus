@@ -63,8 +63,6 @@ dependencies {
     implementation(Libs.androidx_core_core_ktx)
 
     // Dagger
-
-    // Dagger
     implementation("com.google.dagger:dagger:2.24")
     kapt("com.google.dagger:dagger-compiler:2.24")
     implementation("com.google.dagger:dagger-android-support:2.24")

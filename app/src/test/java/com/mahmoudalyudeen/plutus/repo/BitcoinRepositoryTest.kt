@@ -3,7 +3,7 @@ package com.mahmoudalyudeen.plutus.repo
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import com.google.common.truth.Truth.assertThat
-import com.mahmoudalyudeen.plutus.api.ApiServices
+import com.mahmoudalyudeen.plutus.api.BitcoinApi
 import com.mahmoudalyudeen.plutus.api.MarketPriceDto
 import com.mahmoudalyudeen.plutus.db.BitcoinDatabase
 import com.mahmoudalyudeen.plutus.db.entities.DatabaseBitcoinValue
@@ -27,7 +27,7 @@ import org.junit.Test
 class BitcoinRepositoryTest {
 
     @MockK
-    private lateinit var bitcoinApi: ApiServices.BitcoinApi
+    private lateinit var bitcoinApi: BitcoinApi
 
     @MockK
     private lateinit var bitcoinDatabase: BitcoinDatabase
@@ -76,7 +76,7 @@ class BitcoinRepositoryTest {
         every { bitcoinDatabase.bitcoinValueDao.getBitcoinValues() } returns values
 
         /** WHEN - [BitcoinRepository] is instantiated */
-        bitcoinRepository = BitcoinRepository(bitcoinDatabase, bitcoinApi)
+        bitcoinRepository = BitcoinRepository(bitcoinApi, bitcoinDatabase.bitcoinValueDao)
 
         /** THEN - [BitcoinRepository.bitcoinValues] contains a list of [BitcoinValue] */
         assertThat(bitcoinRepository.bitcoinValues.valueSync).isEqualTo(listOf(domainBitcoinValue))
@@ -84,11 +84,11 @@ class BitcoinRepositoryTest {
 
     @Test
     fun fetchBitcoinValuesAndSaveToDatabase() = runBlocking {
-        /** GIVEN - [ApiServices.BitcoinApi] returns a [MarketPriceDto] containing a list of [MarketPriceDto.ValueDto] */
+        /** GIVEN - [BitcoinApi] returns a [MarketPriceDto] containing a list of [MarketPriceDto.ValueDto] */
         coEvery { bitcoinApi.getMarketPrice() } returns marketPriceDto
 
         /** WHEN - [BitcoinRepository.fetchBitcoinValues] is called */
-        bitcoinRepository = BitcoinRepository(bitcoinDatabase, bitcoinApi)
+        bitcoinRepository = BitcoinRepository(bitcoinApi, bitcoinDatabase.bitcoinValueDao)
         bitcoinRepository.fetchBitcoinValues()
 
         /** THEN - [BitcoinDatabase.bitcoinValueDao] is called to persist a mapped list of [DatabaseBitcoinValue] */
